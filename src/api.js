@@ -22,7 +22,6 @@
 
 // import {openDb} from './configDB.js';
 
-import { createProduto, deleteProduto, insertProduto, selectProduto, selectProdutos, updateProduto} from './controller/Produto.js';
 import { createCarrinho, insertCarrinho, selectCarrinhos, selectCarrinho, updateCarrinho, deleteCarrinho } from './controller/Carrinho.js';
 import express from 'express';
 
@@ -31,80 +30,11 @@ const app = express();
 app.use(express.json());
 
 import routerUsuario from '../routers/UsuarioRouter.js';
+import routerProdutos from '../routers/ProdutosRouter.js';
 
 app.use(routerUsuario);
-// app.use(routerProdutos);
+app.use(routerProdutos);
 // app.use(routerCarrinho);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Produtos!!!!!!!
-
-
-
-app.get('/produtos', async function (req, res) {
-    let produtos = await selectProdutos();
-       res.json(produtos)
-});
-
-app.get('/produto', async function (req, res) {
-    let produto = await selectProduto(req.body.id);
-       res.json(produto)
-   });
-
-app.post('/produto', function (req, res) {
-    insertProduto(req.body)
-    res.json({
-        "statucCode": 200
-    })
-});
-
-app.put('/produto', function (req, res) {
-    if (req.body && !req.body.id) {
-        res.json({
-            "statusCode": "400",
-            "msg": "Você precisa informar um id"
-        })
-    } else {
-        updateProduto(req.body)
-        res.json({
-            "statucCode": 200
-        })
-    }
-
-});
-
-app.delete('/produto', async function (req, res) {
-    let produto = await deleteProduto(req.body.id);
-       res.json(produto)
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // CARRINHO!!!!!!!!!

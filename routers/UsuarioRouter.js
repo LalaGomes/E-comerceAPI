@@ -20,5 +20,6 @@ routerUsuario.delete('/usuario', deleteUsuario);
 
 routerUsuario.get('/login', loginUsuario);
 
+createTable();
 
 export default routerUsuario;
