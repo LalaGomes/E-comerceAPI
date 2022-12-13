@@ -21,7 +21,7 @@
 
 
 // import {openDb} from './configDB.js';
-import { createTable, insertUsuario, updateUsuario, selectUsuarios, selectUsuario, deleteUsuario } from './controller/Usuario.js';
+
 import { createProduto, deleteProduto, insertProduto, selectProduto, selectProdutos, updateProduto} from './controller/Produto.js';
 import { createCarrinho, insertCarrinho, selectCarrinhos, selectCarrinho, updateCarrinho, deleteCarrinho } from './controller/Carrinho.js';
 import express from 'express';
@@ -30,62 +30,11 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/', function (req, res) {
-    res.send('Hello Word')
-});
+import routerUsuario from '../routers/UsuarioRouter.js';
 
-app.get('/usuarios', async function (req, res) {
- let usuarios = await selectUsuarios();
-    res.json(usuarios)
-});
-
-app.get('/usuario', async function (req, res) {
-    let usuario = await selectUsuario(req.body.id);
-       res.json(usuario)
-   });
-
-app.post('/usuario', function (req, res) {
-    // console.log(req.body);
-    insertUsuario(req.body)
-    res.json({
-        "statucCode": 200
-    })
-});
-
-app.put('/usuario', function (req, res) {
-    if (req.body && !req.body.id) {
-        res.json({
-            "statusCode": "400",
-            "msg": "Você precisa informar um id"
-        })
-    } else {
-        updateUsuario(req.body)
-        res.json({
-            "statucCode": 200
-        })
-    }
-
-});
-
-app.delete('/usuario', async function (req, res) {
-    let usuario = await deleteUsuario(req.body.id);
-       res.json(usuario)
-});
-
-app.post('/login', function(req, res){
-    if (req.body && !req.body.senha) {
-        res.json({
-            "statusCode": "400",
-            "msg": "Você precisa informar uma senha"
-        })
-    } else {
-        loginUsuario(req.body)
-        res.json({
-            "statucCode": 200
-        })
-    }
-})
-
+app.use(routerUsuario);
+// app.use(routerProdutos);
+// app.use(routerCarrinho);
 
 
 
