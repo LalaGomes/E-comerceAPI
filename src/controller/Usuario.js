@@ -23,7 +23,6 @@ export async function selectUsuario(req, res) {
         });
 }
 
-
 export async function insertUsuario(req, res) {
     let usuarios = req.body;
     openDb().then(db => {
